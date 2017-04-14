@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 500px;
+            height: 500px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div class="page"></div>
+</body>
+<script src="index.js"></script>
+<script>
+    var element = document.querySelector('.page')
+    var hello = function () {
+        alert('sucess!')
+    }
+    var touch = new Touch(element)
+    touch.onSwipe('right', hello)
+</script>
+</html>
