@@ -2,9 +2,10 @@
  * Created by shen on 2017/4/14.
  */
 class Touch {
-    constructor(element, fn) {
+    constructor(element) {
         this.dom = element
         this.checkDom()
+        this.isRight = false
     }
     checkDom() {
         if(!this.dom) {
@@ -12,14 +13,35 @@ class Touch {
         }
         return this
     }
+    _judge(bool) {
+        if(bool){
+            this.isRight = true
+            return
+        }
+        this.isRight = false
+    }
     onSwipe(direction, fn) {
         let x0,
-            y0
+            y0;
+        let that = this
+        let strategies = {
+            'right': function (bool) {
+                that._judge(bool > 100)
+            },
+            'left': function (bool) {
+                that._judge(bool < -100)
+            },
+            'up': function (bool) {
+                that._judge(bool < -100)
+            },
+            'down': function (bool) {
+                that._judge(bool > 100)
+            }
+        }
         this.dom.addEventListener('touchstart', function (e) {
             x0 = e.touches[0].clientX
             y0 = e.touches[0].clientY
         })
-        var isRight = false
         this.dom.addEventListener('touchmove', function (e) {
             if(!x0 || !y0)return
             var moveX = e.touches[0].clientX
@@ -27,23 +49,15 @@ class Touch {
             var diffX = moveX - x0
             var diffY = moveY - y0
             if(Math.abs(diffX) > Math.abs(diffY)) {
-                if(diffX > 100 && direction == 'right') {
-                    isRight = true
-                } else if(diffX < -100 && direction == 'left'){
-                    isRight = true
-                }
+                strategies[direction](diffX)
             } else {
-                if(diffY > 100 && direction == 'down') {
-                    isRight = true
-                } else if(diffY < -100 && direction == 'up') {
-                    isRight = true
-                }
+                strategies[direction](diffX)
             }
         })
         this.dom.addEventListener('touchend', function (e) {
-            if(isRight) {
+            if(that.isRight) {
                 fn && fn()
-                isRight = false
+                that.isRight = false
                 x0 = undefined
                 y0 = undefined
             }
