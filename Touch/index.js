@@ -25,17 +25,17 @@ class Touch {
             y0;
         let that = this
         let strategies = {
-            'right': function (bool) {
-                that._judge(bool > 100)
+            'right': function (bool, length) {
+                that._judge(bool > length)
             },
-            'left': function (bool) {
-                that._judge(bool < -100)
+            'left': function (bool, length) {
+                that._judge(bool < -length)
             },
-            'up': function (bool) {
-                that._judge(bool < -100)
+            'up': function (bool, length) {
+                that._judge(bool < -length)
             },
-            'down': function (bool) {
-                that._judge(bool > 100)
+            'down': function (bool, length) {
+                that._judge(bool > length)
             }
         }
         this.dom.addEventListener('touchstart', function (e) {
@@ -49,9 +49,9 @@ class Touch {
             var diffX = moveX - x0
             var diffY = moveY - y0
             if(Math.abs(diffX) > Math.abs(diffY)) {
-                strategies[direction](diffX)
+                strategies[direction](diffX, 100)
             } else {
-                strategies[direction](diffX)
+                strategies[direction](diffY, 100)
             }
         })
         this.dom.addEventListener('touchend', function (e) {

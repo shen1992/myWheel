@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var throttle = function (fn, interval) {
+        var _me = fn,
+            timer,
+            firstUse = true
+        return function () {
+            var _self = this
+            var _args = arguments
+            if (firstUse) {
+                _me.apply(_self, _args)
+                firstUse = false
+            }
+            if (timer) {
+                return false
+            }
+            timer = setTimeout(function () {
+                clearTimeout(timer)
+                timer = null
+                _me.apply(_self, _args)
+            }, interval || 200)
+        }
+    }
+    window.onresize = throttle(function () {
+        console.log('1')
+    })
+</script>
+</body>
+</html>
