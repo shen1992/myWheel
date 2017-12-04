@@ -2,9 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <style>
+        li {
+            list-style: none;
+            width: 100px;
+            height: 30px;
+            background: yellow;
+            margin: 10px;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin: 200px;
+        }
+    </style>
 </head>
 <body>
-$END$
+    <ul>
+        <li draggable="true">a</li>
+        <li draggable="true">b</li>
+        <li draggable="true">c</li>
+    </ul>
+    <div id="div1">目标点</div>
+<script>
+    window.onload = function () {
+      var aLi = document.getElementsByTagName('li')
+      var oDiv = document.getElementById('div1')
+      var oUl = document.getElementsByTagName('ul')[0]
+      var i = 0
+      
+      for(var i = 0; i < aLi.length; i++) {
+        aLi[i].index = i
+
+        aLi[i].ondragstart = function (ev) {
+          var ev = ev || window.event
+//          ev.dataTransfer.setData('name', this.index)
+          this.style.background = 'green'
+        }
+        aLi[i].ondragend = function () {
+          this.style.background = 'yellow'
+        }
+      }
+      oDiv.ondragenter = function () {
+        this.style.background = 'blue'
+      }
+      oDiv.ondragover = function (ev) {
+        ev.preventDefault()
+      }
+      oDiv.ondragleave = function () {
+        this.style.background = 'red'
+      }
+      oDiv.ondrop = function () {
+        alert(123)
+      }
+    }
+</script>
 </body>
 </html>
