@@ -19,7 +19,7 @@ function Fetch(url, options) {
   return fetch(url, {credentials: 'include', ...options})
     .then((res) => res.json())
     .then(json => json)
-    .catch((e) => console.log(e))
+    .catch((e) => console.log('error', e))
 }
 
 function GET(url, data = {}, options = {}) {
@@ -28,7 +28,7 @@ function GET(url, data = {}, options = {}) {
     return Fetch(_url, {
       method: 'GET',
       ...options
-    },)
+    })
       .then((res) => res)
       .catch((err) => {throw err})
   }
@@ -49,8 +49,26 @@ function POST(url, data = {}, option = {}) {
   }
 }
 
+function PUT(url, data = {}, options = {}) {
+  return FETCH(url, {
+    method: 'PUT',
+    body: typeof data === 'object' ? JSON.stringify(data) : data,
+    ...options,
+  })
+}
+
+function DELETE(url, data = {}, options = {}) {
+  return FETCH(url, {
+    method: 'DELETE',
+    body: typeof data === 'object' ? JSON.stringify(data) : data,
+    ...options,
+  })
+}
+
 export {
   GET,
-  POST
+  POST,
+  PUT,
+  DELETE,
 }
 
