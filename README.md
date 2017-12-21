@@ -8,4 +8,5 @@
 - 拖动(draggable)
 - 过滤重复数组(filterRepeat)
 - 封装好的fetch
+- 对象的浅拷贝和深拷贝Copy
 #### 仅用于个人积累学习，后续持续更新
