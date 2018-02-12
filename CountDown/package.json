@@ -1,0 +1,43 @@
+{
+  "name": "mrua",
+  "version": "0.0.1",
+  "description": "管理后台",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.prod.js",
+    "start": "webpack --watch --config webpack.dev.js",
+    "dev": "webpack --config webpack.dev.js"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-import": "^1.6.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.4.0",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.5",
+    "glob": "^7.1.2",
+    "html-webpack-plugin": "^2.30.1",
+    "image-webpack-loader": "^4.0.0",
+    "imagemin-webpack-plugin": "^2.0.0",
+    "inline-manifest-webpack-plugin": "^3.0.1",
+    "inline-source-map": "^0.6.2",
+    "style-loader": "^0.13.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "uglifyjs-webpack-plugin": "^1.0.1",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.8.1",
+    "webpack-merge": "^4.1.1"
+  },
+  "dependencies": {
+    "countdown": "^2.6.0",
+    "nw-countdown": "^1.0.0"
+  }
+}
