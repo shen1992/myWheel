@@ -4,8 +4,9 @@ export default class CountDown {
     this.container = document.querySelector(option.container || 'body')
     this.endTime = option.endTime
     this.callBack = option.callBack
-    this.dayEndShow = option.dayEndShow || true
+    this.dayEndShow = option.dayEndShow ? option.dayEndShow : true
     this.colon = option.colon
+    this.symbol = option.symbol || ':'
     this.init()
   }
 
@@ -25,59 +26,59 @@ export default class CountDown {
   renderTimeFormat() {
     let el = document.createElement('div')
     el.classList.add('con')
-    el.style.fontSize = 0
+    el.style.overflow = 'hidden'
     el.innerHTML = `
-      <div class="box" style="display: inline-block" id="day">
-        <div id="t_d" class="box_num" style="display: inline-block;font-size: 12px"></div>
-        <span class="box_unit" style="display: inline-block;font-size: 12px">天</span>
+      <div class="box" style="float: left" id="day">
+        <div id="t_d" class="box_num" style="float: left"></div>
+        <span class="box_unit" style="float: left">天</span>
       </div>
-      <div class="box" style="display: inline-block">
-        <div id="t_h" class="box_num" style="display: inline-block;font-size: 12px"></div>
-        <span class="box_unit" style="display: inline-block;font-size: 12px">时</span>
+      <div class="box" style="float: left">
+        <div id="t_h" class="box_num" style="float: left"></div>
+        <span class="box_unit" style="float: left">时</span>
       </div>
-      <div class="box" style="display: inline-block">
-        <div id="t_m" class="box_num" style="display: inline-block;font-size: 12px"></div>
-        <span class="box_unit" style="display: inline-block;font-size: 12px">分</span>
+      <div class="box" style="float: left">
+        <div id="t_m" class="box_num" style="float: left"></div>
+        <span class="box_unit" style="float: left">分</span>
       </div>
-      <div class="box" style="display: inline-block">
-        <div id="t_s" class="box_num" style="display: inline-block;font-size: 12px"></div>
-        <span class="box_unit" style="display: inline-block;font-size: 12px">秒</span>
+      <div class="box" style="float: left">
+        <div id="t_s" class="box_num" style="float: left"></div>
+        <span class="box_unit" style="float: left">秒</span>
       </div>
-      <div class="none box" id="ms" style="display: none;">
-        <div id="t_ms" class="box_num" style="display: inline-block;font-size: 12px"></div>
-        <span class="box_unit" style="font-size: 12px;">分秒</span>
+      <div class="none box" id="ms" style="float: left; display: none">
+        <div id="t_ms" class="box_num" style="float: left"></div>
+        <span class="box_unit" style="float: left">分秒</span>
       </div>
     `
     this.container.appendChild(el)
     if (this.isMs) {
-      document.querySelector('#ms').style.display = 'inline-block'
+      document.querySelector('#ms').style.display = 'block'
     }
   }
 
   renderColonFormat() {
     let el = document.createElement('div')
     el.classList.add('con')
-    el.style.fontSize = 0
+    el.style.overflow = 'hidden'
     el.innerHTML = `
-      <div class="box" style="display: inline-block">
-        <div id="t_h" class="box_num" style="display: inline-block;font-size: 12px"></div>
-        <span class="box_unit" style="display: inline-block;font-size: 12px">:</span>
+      <div class="box" style="float: left">
+        <div id="t_h" class="box_num" style="float: left"></div>
+        <span class="box_unit" style="float: left">:</span>
       </div>
-      <div class="box" style="display: inline-block">
-        <div id="t_m" class="box_num" style="display: inline-block;font-size: 12px"></div>
-        <span class="box_unit" style="display: inline-block;font-size: 12px">:</span>
+      <div class="box" style="float: left">
+        <div id="t_m" class="box_num" style="float: left"></div>
+        <span class="box_unit" style="float: left">:</span>
       </div>
-      <div class="box" style="display: inline-block">
-        <div id="t_s" class="box_num" style="display: inline-block;font-size: 12px"></div>
-        <span class="box_unit" style="display: inline-block;font-size: 12px" id="lastColon"></span>
+      <div class="box" style="float: left">
+        <div id="t_s" class="box_num" style="float: left"></div>
+        <span class="box_unit" style="float: left" id="lastSymbol"></span>
       </div>
-      <div class="none box" id="ms" style="display: none;">
-        <div id="t_ms" class="box_num" style="display: inline-block;font-size: 12px"></div>
+      <div class="none box" id="ms" style="display: none; float: left">
+        <div id="t_ms" class="box_num" style="float: left"></div>
       </div>
     `
     this.container.appendChild(el)
     if (this.isMs) {
-      document.querySelector('#ms').style.display = 'inline-block'
+      document.querySelector('#ms').style.display = 'block'
     }
   }
 
@@ -90,7 +91,7 @@ export default class CountDown {
   }
 
   timerFormatEvent() {
-    let {endTime, colon} = this
+    let {endTime, dayEndShow, isMs} = this
     if(typeof endTime !== "number") {
       endTime = new Date(endTime).getTime()
     }
@@ -101,25 +102,23 @@ export default class CountDown {
       second = Math.floor(time / 1000 % 60) <= 0 ? 0 : Math.floor(time / 1000 % 60),
       ms     = Math.floor(time % 1000 / 100) <= 0 ? 0 : Math.floor(time % 1000 / 100)
 
-    ms = (ms === 0 && second !== 0) ? `1${ms}` : `0${ms}`
-
     document.querySelector('#t_d').innerHTML = day
     document.querySelector('#t_h').innerHTML = hour
     document.querySelector('#t_m').innerHTML = minute
     document.querySelector('#t_s').innerHTML = second
     document.querySelector('#t_ms').innerHTML = ms
 
-    if (day <= 0) {
+    if (day <= 0 && dayEndShow) {
       document.querySelector('#day').style.display = 'none'
     }
 
-    if (day <= 0 && this.dayEndShow) {
-      document.querySelector('#ms').style.display = 'inline-block'
+    if (isMs) {
+      document.querySelector('#ms').style.display = 'block'
     }
 
     let timer = setTimeout(() => {
-      this.bindEvent()
-    }, 1)
+      this.timerFormatEvent()
+    }, 0)
 
     if (day <= 0 && hour <= 0 && minute <= 0 && second <= 0  && ms <= 0) {
       clearTimeout(timer)
@@ -128,7 +127,7 @@ export default class CountDown {
   }
 
   colonFormatEvent() {
-    let {endTime, isMs} = this
+    let {endTime, isMs, symbol} = this
     if(typeof endTime !== "number") {
       endTime = new Date(endTime).getTime()
     }
@@ -138,7 +137,6 @@ export default class CountDown {
       second = Math.floor(time / 1000 % 60) <= 0 ? 0 : Math.floor(time / 1000 % 60),
       ms     = Math.floor(time % 1000 / 100) <= 0 ? 0 : Math.floor(time % 1000 / 100)
 
-    ms = (ms === 0 && second !== 0) ? `1${ms}` : `0${ms}`
     hour = hour < 10 ? `0${hour}` : hour
     minute = minute < 10 ? `0${minute}` : minute
     second = second < 10 ? `0${second}` : second
@@ -148,14 +146,14 @@ export default class CountDown {
     document.querySelector('#t_s').innerHTML = second
     document.querySelector('#t_ms').innerHTML = ms
 
-    if (hour <= 0 || isMs) {
-      document.querySelector('#lastColon').innerHTML = ':'
-      document.querySelector('#ms').style.display = 'inline-block'
+    if (isMs) {
+      document.querySelector('#lastSymbol').innerHTML = symbol
+      document.querySelector('#ms').style.display = 'block'
     }
 
     let timer = setTimeout(() => {
       this.colonFormatEvent()
-    }, 1)
+    }, 0)
 
     if (hour <= 0 && minute <= 0 && second <= 0  && ms <= 0) {
       clearTimeout(timer)

@@ -6,5 +6,5 @@ function alert() {
 
 console.log('2');
 
-new CountDown({endTime: '2018/02/19 10:10:00', container: '.container'})
+new CountDown({endTime: '2019/02/19 10:10:00', container: '.container'})
 
