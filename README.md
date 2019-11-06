@@ -11,6 +11,7 @@
 - 过滤重复数组(filterRepeat)
 - 封装好的fetch
 - 对象的浅拷贝和深拷贝Copy
-- node递归创建目录
+- node递归创建目录(mkdir)
+- 对象浅比较(shallowEqual)
 
 #### 仅用于个人积累学习，后续持续更新
