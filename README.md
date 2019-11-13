@@ -13,5 +13,6 @@
 - 对象的浅拷贝和深拷贝Copy
 - node递归创建目录(mkdir)
 - 对象浅比较(shallowEqual)
+- webpack的配置(webpackConfig)
 
 #### 仅用于个人积累学习，后续持续更新
