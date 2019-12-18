@@ -14,5 +14,6 @@
 - node递归创建目录(mkdir)
 - 对象浅比较(shallowEqual)
 - webpack的配置(webpackConfig)
+- nodeOperate常用的node操作
 
 #### 仅用于个人积累学习，后续持续更新

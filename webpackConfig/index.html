@@ -8,5 +8,17 @@
 </head>
 <body>
   <div id='root'></div>
+  <video 
+    id='video'
+    preload='auto'
+    src='https://easyreadfs.nosdn.127.net/wwb.63de894857d84d97a114334bd05152d6.mp4'
+    ></video>
+    <button id='btn'>点我</button>
+    <script>
+      document.getElementById('btn').onclick = function() {
+        
+        document.getElementById('video').play()
+      }
+    </script>
 </body>
 </html>

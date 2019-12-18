@@ -1,12 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 module.exports = {
   entry: {
-    app: './src/index.tsx',
+    app: './src/index.js',
   },
   plugins: [
+    new ProgressBarPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'caching',
@@ -49,7 +51,6 @@ module.exports = {
         use: 'awesome-typescript-loader',
         exclude: /node_modules/
       },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
         test: /.css$/,
         use: [
