@@ -3,8 +3,8 @@ const puppeteer = require('puppeteer-core')
 const iPhone = puppeteer.devices['iPhone XR']
 
 puppeteer.launch({
-  executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-  // executablePath: '/usr/bin/google-chrome',
+  // executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  executablePath: '/usr/bin/google-chrome',
   ignoreHTTPSErrors : true,
   args: [
     '--no-sandbox', 
