@@ -1,17 +1,15 @@
-import React from 'react'
-import {render} from 'react-dom'
-
-import './style.module.css'
+import React from "react";
+import ReactDOM from "react-dom";
 
 class Hello extends React.Component {
   render() {
     return (
-      <div className='oDiv'>hello world</div>
+      <div>hello react 15</div>
     )
   }
 }
 
-render(
+ReactDOM.render(
   <Hello/>,
   document.getElementById('root')
 )

@@ -2,8 +2,8 @@
  * Created by shen on 2017/4/14.
  */
 class Touch {
-    constructor(element) {
-        this.dom = element
+    constructor(selector) {
+        this.dom = document.querySelector(selector)
         this.checkDom()
         this.isRight = false
     }

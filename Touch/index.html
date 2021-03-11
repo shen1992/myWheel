@@ -16,11 +16,10 @@
 </body>
 <script src="index.js"></script>
 <script>
-    var element = document.querySelector('.page')
     var hello = function () {
         alert('sucess!')
     }
-    var touch = new Touch(element)
-    touch.onSwipe('right', hello)
+    var touch = new Touch('.page')
+    touch.onSwipe('up', hello)
 </script>
 </html>
